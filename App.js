@@ -1,20 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// Import safe area view
+import { SafeAreaView, StyleSheet, View } from 'react-native';
+// Import component เพิ่มเติม
+import { NativeBaseProvider, Box, HStack, Text } from "native-base";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <NativeBaseProvider>
+        <SafeAreaView>
+          {/* กำหนดพื้นที่ safe area และสี */}
+          <Box safeAreaTop bgColor="violet.800"/>
+            {/* กำหนดส่วนที่เป็น  header */}
+            <HStack bg="violet.800" px="3" py="3" w="100%">
+                {/* กำหนดข้อความ */}
+                <Text color="white" fontSize="20" fontWeight="bold">
+                    Home
+                </Text>
+            </HStack>
+
+            
+        </SafeAreaView>
       <StatusBar style="auto" />
-    </View>
+    </NativeBaseProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
