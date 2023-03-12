@@ -22,6 +22,7 @@ export const fetchOpenAI = createAsyncThunk(
       "messages": [{ "role": "user", "content": prompt }]
     });
 
+    console.log('Sending prompt:')
     console.log(jsonPrompt)
 
     // ใช้ axios ส่ง request โดยการกำหนด key และ json 
@@ -34,6 +35,9 @@ export const fetchOpenAI = createAsyncThunk(
           'Authorization': `Bearer ${key}`
         }
       });
+
+    console.log('got response:')
+    console.log(response.data.choices[0].message.content);
 
     // ดึงเฉพาะส่วนข้อความที่ API ตอบกลับมา
     return response.data.choices[0].message.content;
