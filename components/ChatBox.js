@@ -1,26 +1,27 @@
 import { View, Text } from 'react-native'
-
-// Import useState เพื่อใช้เก็บค่าที่ได้จาก Input
 import React, { useState } from 'react'
-
 import { HStack, Icon, IconButton, Input } from 'native-base'
 import { FontAwesome } from '@expo/vector-icons';
+
+// เรียกใช้ useDispatch hook
+import { useDispatch } from 'react-redux';
+// เรียกใช้ reducer function ในการสร้าง action object เพื่อส่งให้กับ redux
+import { addUserMessage } from './../redux/chatHistorySlice';
+
 const ChatBox = () => {
 
-    // สร้าง state variable chatMessage เก็บค่าจาก input
     const [chatMessage, setChatMessage] = useState("")
+
+    // สร้าง dispatch function 
+    const dispatch = useDispatch();
 
     return (
         <>
             <HStack space={2} p={2}>
-                {/* เก็บข้อความจาก event onChangeText เข้าตัวแปร state 
-                    และดึงค่าตัวแปร state มาแสดงใน input กรณีที่มีการอัพเดตข้อความในตัวแปร state
-                */}
                 <Input flex={7} placeholder="Talk to me..."
                     onChangeText={(text) => setChatMessage(text)}
                     value={chatMessage}
                 />
-                {/* ใช้ event onPress ในการดึงข้อความที่อยู่ใน state ออกมาใช้งาน */}
                 <IconButton
                     flex={1}
                     borderRadius="sm"
@@ -28,8 +29,13 @@ const ChatBox = () => {
                     icon={<Icon as={FontAwesome} name="send" size="sm" />}
                     onPress={() => {
                         console.log(`Sending message: ${chatMessage}`);
-                        
-                        // เมื่อสิ้นสุดกระบวนการ จะเซ็ทค่าตัวแปร state เป็นข้อความเปล่า เพื่อเคลียร์ข้อความออกจาก Input 
+
+                        // ใส่ข้อความที่พิมพ์ลงไปใน action object โดยการเรียกใช้ reducer function
+                        const action = addUserMessage(chatMessage);
+
+                        // ส่ง action ไปที่ slice ผ่าน dispatch function
+                        dispatch(action);
+
                         setChatMessage("");
                     }}
                 />
