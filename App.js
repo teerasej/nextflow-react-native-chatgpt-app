@@ -2,15 +2,18 @@ import { StatusBar } from 'expo-status-bar';
 
 import { NativeBaseProvider, Box, HStack, Text, VStack } from "native-base";
 import ChatHistory from './components/ChatHistory';
-
-// import component chat box
 import ChatBox from './components/ChatBox';
+
+// เรียกใช้ provider และ store
+import { Provider } from 'react-redux';
+import store from "./redux/store";
 
 export default function App() {
 
   return (
-    <NativeBaseProvider>
-     
+    // ครอบ component ทั้งหมดด้วย Provider ที่มีการใส่ store ลงไปใช้งาน
+    <Provider store={store}>
+      <NativeBaseProvider>
         <Box safeAreaTop bg Color="violet.800" />
         <HStack bg="violet.800" px="3" py="3" w="100%">
           <Text color="white" fontSize="20" fontWeight="bold">
@@ -19,13 +22,11 @@ export default function App() {
         </HStack>
 
         <VStack w="100%" flex={1}>
-          <ChatHistory flex={1}/>
-
-          {/* แสดง chatbox โดยไม่กำหนดค่า flex เพื่อให้ ChatHistory กินพื้นที่ที่เหลือทั้งหมด */}
-          <ChatBox/>
-
+          <ChatHistory flex={1} />
+          <ChatBox />
         </VStack>
-      <StatusBar style="auto" />
-    </NativeBaseProvider>
+        <StatusBar style="auto" />
+      </NativeBaseProvider>
+    </Provider>
   );
 }
