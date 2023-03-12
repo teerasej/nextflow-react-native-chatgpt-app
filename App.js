@@ -1,10 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 
-// Import component เพิ่มเติม
 import { NativeBaseProvider, Box, HStack, Text, VStack } from "native-base";
-
-// import component chat history
 import ChatHistory from './components/ChatHistory';
+
+// import component chat box
+import ChatBox from './components/ChatBox';
 
 export default function App() {
 
@@ -19,9 +19,10 @@ export default function App() {
         </HStack>
 
         <VStack w="100%" flex={1}>
-          
-          {/* แสดง chathistory โดยกำหนดกินพื้นที่ 1 ช่องจากทั้งหมด */}
           <ChatHistory flex={1}/>
+
+          {/* แสดง chatbox โดยไม่กำหนดค่า flex เพื่อให้ ChatHistory กินพื้นที่ที่เหลือทั้งหมด */}
+          <ChatBox/>
 
         </VStack>
       <StatusBar style="auto" />
