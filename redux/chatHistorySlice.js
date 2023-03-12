@@ -74,7 +74,11 @@ const chatHistorySlice = createSlice({
 
         // ถ้าได้การทำงานของ Async thunk สมบูรณ์ ค่าที่ return ออกมาจะอยู่ใน payload 
         // ในที่นี้เราจะเอามาใส่เพิ่มในห้องแชท โดยกำหนดชื่อ sender เป็น GPT
-        state.push({ sender:'GPT', text: action.payload, id: Math.floor(Math.random() * 1000)})
+        state.chatHistory.push({ 
+          sender:'GPT', 
+          text: action.payload, 
+          id: Math.floor(Math.random() * 1000)
+        });
         
       })
       // ในกรณีที่ Async Thunk ล้มเหลวจะเข้าเคสนี้
