@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 
-import { NativeBaseProvider, Box, HStack, Text, VStack } from "native-base";
+import { NativeBaseProvider, Box, HStack, Text, VStack, KeyboardAvoidingView } from "native-base";
 import ChatHistory from './components/ChatHistory';
 import ChatBox from './components/ChatBox';
 
@@ -20,13 +20,16 @@ export default function App() {
             Home
           </Text>
         </HStack>
-
-        <VStack w="100%" flex={1}>
-          <ChatHistory flex={1} />
-          <ChatBox />
-        </VStack>
+        <KeyboardAvoidingView behavior='padding' flex={1}>
+          <VStack w="100%" flex={1}>
+            <ChatHistory flex={1} />
+            <ChatBox />
+          </VStack>
+        </KeyboardAvoidingView>
+        <Box safeAreaBottom />
         <StatusBar style="auto" />
       </NativeBaseProvider>
     </Provider>
+
   );
 }
