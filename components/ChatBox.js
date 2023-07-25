@@ -4,13 +4,11 @@ import { HStack, Icon, IconButton, Input } from 'native-base'
 import { FontAwesome } from '@expo/vector-icons';
 import { useDispatch } from 'react-redux';
 
-// เรียกใช้ reducer function ในการสร้าง action object เพื่อส่งให้กับ redux
-import { addUserMessage, fetchOpenAI } from './../redux/chatHistorySlice';
+import { addUserMessage } from './../redux/chatHistorySlice';
 
 const ChatBox = () => {
 
     const [chatMessage, setChatMessage] = useState("")
-    const dispatch = useDispatch();
 
     return (
         <>
@@ -25,16 +23,8 @@ const ChatBox = () => {
                     variant="solid"
                     icon={<Icon as={FontAwesome} name="send" size="sm" />}
                     onPress={() => {
-                        console.log(`Sending message: ${chatMessage}`);
-
-                        const action = addUserMessage(chatMessage);
-                        dispatch(action);
-
-                        // Dispatch Async thunk action โดยการส่งข้อความเป็น prompt
-                        const asyncThunkAction = fetchOpenAI(chatMessage);
-                        dispatch(asyncThunkAction);
-
-                        setChatMessage("");
+                        addUserMessage(chatMessage);
+                        
                     }}
                 />
             </HStack>
